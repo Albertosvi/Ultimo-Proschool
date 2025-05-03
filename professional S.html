@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional School</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header, .card, form {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    header {
+      text-align: center;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    h1, h2, h3 {
+      color: #0A3D62;
+    }
+    .accordion {
+      cursor: pointer;
+      padding: 10px;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 16px;
+      background: #dfe6e9;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+    .panel {
+      display: none;
+      background-color: white;
+      padding: 10px;
+      border-left: 3px solid #0A3D62;
+    }
+    label, select, input, textarea {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #0A3D62;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .success {
+      color: green;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Professional School</h1>
+  <img src="https://github.com/Albertosvi/Profesional-School/blob/main/school%20image.png?raw=true" alt="Imagen Escuela">
+</header>
+
+<div class="card">
+  <h2>¿Quiénes somos?</h2>
+  <p>En Professional School, creemos en preparar a nuestros alumnos para el futuro, hoy...</p>
+  <h3>Misión</h3>
+  <p>Brindar una educación innovadora...</p>
+  <h3>Visión</h3>
+  <p>Ser una escuela líder en innovación educativa...</p>
+  <h3>Valores</h3>
+  <ul>
+    <li>Innovación</li>
+    <li>Responsabilidad</li>
+    <li>Adaptabilidad</li>
+    <li>Colaboración</li>
+    <li>Excelencia</li>
+    <li>Curiosidad</li>
+    <li>Respeto</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>Especialidades</h2>
+  <button class="accordion">Tecnología y Programación</button>
+  <div class="panel"><p>Contenido de la especialidad...</p></div>
+  <button class="accordion">Innovación y Nuevas Tendencias</button>
+  <div class="panel"><p>Contenido de la especialidad...</p></div>
+  <button class="accordion">Habilidades del Siglo XXI</button>
+  <div class="panel"><p>Contenido de la especialidad...</p></div>
+  <button class="accordion">Arte y Diseño Digital</button>
+  <div class="panel"><p>Contenido de la especialidad...</p></div>
+  <button class="accordion">Ciencias Aplicadas</button>
+  <div class="panel"><p>Contenido de la especialidad...</p></div>
+  <button class="accordion">Idiomas y Cultura Global</button>
+  <div class="panel"><p>Contenido de la especialidad...</p></div>
+  <button class="accordion">Opciones de especialización</button>
+  <div class="panel"><p>Contenido de la especialidad...</p></div>
+</div>
+
+<div class="card">
+  <h2>Agenda una cita</h2>
+  <form id="form">
+    <label>Nombre completo <input name="Nombre completo" required></label>
+    <label>Teléfono <input name="Teléfono" required></label>
+    <label>Correo electrónico <input type="email" name="Correo electrónico" required></label>
+    <label>Sexo
+      <select name="Sexo">
+        <option>Femenino</option>
+        <option>Masculino</option>
+      </select>
+    </label>
+    <label>Grado
+      <select name="Grado">
+        <option>1°</option><option>2°</option><option>3°</option>
+      </select>
+    </label>
+    <label>Fecha <input type="date" name="Fecha" required></label>
+    <label>Hora <input type="time" name="Hora" required></label>
+    <label>Comentarios <textarea name="Comentarios"></textarea></label>
+    <button type="submit">Agendar</button>
+    <p id="mensaje" class="success" style="display:none;"></p>
+  </form>
+</div>
+
+<script>
+  // Acordeón
+  document.querySelectorAll(".accordion").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const panel = btn.nextElementSibling;
+      panel.style.display = panel.style.display === "block" ? "none" : "block";
+    });
+  });
+
+  // Envío del formulario
+  const form = document.getElementById("form");
+  const mensaje = document.getElementById("mensaje");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    try {
+      await fetch("https://script.google.com/macros/s/AKfycbwD7f9WuJ6k-myTagMHqXWs2PH4nSN7mBKL-KLOpqjxCWY3V4kZErBXGychGHgreTaBRQ/exec", {
+        method: "POST",
+        body: formData
+      });
+      mensaje.style.display = "block";
+      mensaje.textContent = "👍 Gracias, tu cita ha sido agendada. ⏳ Redirigiendo al inicio... 🎉 Te contactaremos pronto.";
+      form.reset();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => mensaje.style.display = "none", 5000);
+    } catch (err) {
+      mensaje.style.display = "block";
+      mensaje.textContent = "❌ Hubo un error. Intenta nuevamente.";
+    }
+  });
+</script>
+
+</body>
+</html>
